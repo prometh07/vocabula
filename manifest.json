@@ -1,0 +1,37 @@
+{
+  "manifest_version": 2,
+  "name": "Vocabula",
+  "version": "0.1",
+  "author": "Radosław Luter",
+  "description": "Allows one to save the history of word lookups when using Dictionary.com extension and to export it",
+
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "js": ["js/extensions/dictionary_com.js"]
+    }
+  ],
+  "background": {
+    "scripts": [
+      "js/lib/jquery-3.1.0.js",
+      "js/lib/underscore.js",
+      "js/lib/backbone.js",
+      "js/lib/backbone.chromestorage.js",
+      "js/models.js",
+      "js/collections.js",
+      "js/background.js"
+    ]
+  },
+  "permissions": [
+    "storage"
+  ],
+  "icons": {
+    "256": "images/icon.png"
+  },
+  "browser_action": {
+    "default_icon": {
+      "256": "images/icon.png"
+    },
+    "default_title": "Vocabula"
+  }
+}
