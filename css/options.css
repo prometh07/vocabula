@@ -1,0 +1,58 @@
+html { height: 100%; }
+body {
+  padding-top: 20px;
+  height: 100%;
+  background: linear-gradient(to bottom, #61aa93, #5da0ad);
+}
+.backgrid tbody td {
+    text-align: justify;
+    word-break:break-all;
+}
+.container {
+  width: 75%;
+}
+.panel {
+  border-radius: 0px;
+}
+#container a {
+  color: #5da0ad;
+}
+.backgrid {
+  margin-right: 10px;
+}
+.panel-heading {
+  padding-left: 7px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+#filter form {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  margin: 0px;
+}
+#filter {
+  display: inline-block;
+}
+#filter form {
+  margin-bottom: 5px;
+}
+#filter a {
+  margin-right: 5px;
+}
+#filter input {
+  height: 24px;
+  position-top: -2px;
+}
+.modal-content {
+  border-radius: 0px;
+  color: #777;
+}
+.btn-primary {
+  background-color: #61aa93;
+  border-color: #61aa93;
+}
+.btn-primary:hover {
+  background-color: #5da0ad;
+  border-color: #5da0ad;
+}
