@@ -46,6 +46,7 @@ var VocabulaApp = VocabulaApp || {};
           <div id="filter"></div>\
         </div>\
         <div id="gridView" class="backgrid-container"></div>\
+        <div id="exportView"></div>\
       </div>'),
     events: {
       'click #removePhrases': 'removePhrases',
@@ -54,6 +55,8 @@ var VocabulaApp = VocabulaApp || {};
       this.gridView.getSelectedModels().forEach(phrase => phrase.destroy());
     },
     initialize: function() {
+      this.render();
+
       this.columns = new Backgrid.Columns([
         {
           name: '',
@@ -91,21 +94,22 @@ var VocabulaApp = VocabulaApp || {};
         columns: this.columns,
         collection: VocabulaApp.phrases
       });
-      this.exportView = new VocabulaApp.ExportView();
-      VocabulaApp.phrases.fetch();
-      this.render();
-    },
-    render: function() {
-      this.$el.html(this.template());
-      this.$("#gridView").append(this.gridView.render().el);
+      this.$("#gridView").html(this.gridView.render().el);
+
       this.columnView = new VocabulaApp.ColumnView({collection: this.columns});
       this.columnView.render();
+
       this.filter = new Backgrid.Extension.ClientSideFilter({
         collection: VocabulaApp.phrases,
         fields: ['article']
       });
       this.$('#filter').html(this.filter.render().el);
+
+      this.exportView = new VocabulaApp.ExportView();
       this.exportView.render();
+    },
+    render: function() {
+      this.$el.html(this.template());
     }
   });
 
