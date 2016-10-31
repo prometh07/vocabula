@@ -105,8 +105,7 @@ var VocabulaApp = VocabulaApp || {};
       });
       this.$('#filter').html(this.filter.render().el);
 
-      this.exportView = new VocabulaApp.ExportView();
-      this.exportView.render();
+      this.exportView = new VocabulaApp.ExportView({gridView: this.gridView});
     },
     render: function() {
       this.$el.html(this.template());
@@ -128,8 +127,15 @@ var VocabulaApp = VocabulaApp || {};
                 <div class="form-group">\
                   <label for="fileFormatSelect">Output file format</label>\
                   <select class="form-control" id="fileFormatSelect">\
-                    <option value="tab">tab-separated text file</option>\
+                    <% _.each(fileFormats, function(format) { %>\
+                      <option value="<%= format.extension %>"><%= format.name %></option>\
+                    <% }); %> \
                   </select>\
+                </div>\
+                <div class="checkbox">\
+                  <label>\
+                    <input id="saveOnlySelected" type="checkbox">Save only selected phrases\
+                  </label>\
                 </div>\
               </form>\
             </div>\
@@ -143,14 +149,28 @@ var VocabulaApp = VocabulaApp || {};
     events: {
       'click #download': 'download'
     },
+    initialize: function(options) {
+      this.gridView = options.gridView;
+      this.fileFormats = [
+        {name: 'CSV file', extension: 'csv', separator: ','},
+        {name: 'TSV file', extension: 'tsv', separator: "\t"},
+      ];
+      this.render();
+
+      this.selectedFileFormat = this.$('#fileFormatSelect')[0];
+      this.saveOnlySelected = this.$('#saveOnlySelected')[0];
+    },
     download: function() {
-      let content = VocabulaApp.phrases.map(p => `${p.get('phrase')}\t${p.get('definition')}`).join("\n")
+      let phrases = this.saveOnlySelected.checked ? this.gridView.getSelectedModels() : VocabulaApp.phrases;
+      let format = this.fileFormats.find(f => f.extension === this.selectedFileFormat.value);
+      let content = phrases.map(p => `${p.get('phrase')}${format.separator}${p.get('definition')}`).join("\n");
       let link = this.$('#download')[0];
+      link.download = `export.${format.extension}`;
       link.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(content);
       link.click();
     },
     render: function() {
-      this.$el.html(this.template());
+      this.$el.html(this.template({fileFormats: this.fileFormats}));
     }
   });
 
