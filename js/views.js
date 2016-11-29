@@ -109,6 +109,9 @@ var VocabulaApp = VocabulaApp || {};
     },
     render: function() {
       this.$el.html(this.template());
+    },
+    close: function() {
+      [this.gridView, this.columnView, this.exportView, this].map(v => v.undelegateEvents());
     }
   });
 
@@ -174,10 +177,31 @@ var VocabulaApp = VocabulaApp || {};
     }
   });
 
-  VocabulaApp.AppView = Backbone.View.extend({
-    el: '#app',
+  VocabulaApp.AboutView = Backbone.View.extend({
+    el: '#currentView',
+    template: _.template('\
+      <div class="panel panel-default info">\
+        <div class="panel-body">\
+          <p>Vocabula allows you to save your dictionary lookup history. Whenever\
+          you look up a word, it\'s going to be saved, as well as its definition and source URL.</p>\
+          <p>Currently supported extensions:\
+            <ul><li><a href="https://addons.mozilla.org/en-US/firefox/addon/dictionary-extension/"> Dictionary.com</a></li></ul>\
+          </p>\
+          <p>Currently supported export file formats:\
+            <ul><li>TSV (eg. for Mnemosyne app)</li></ul>\
+          </p>\
+          <p>\
+            <p>If you have any problems or improvement ideas, create an issue, submit a pull request or just write me an email.</p>\
+            <a href="https://github.com/prometh07/vocabula">GitHub repository</a><br>\
+            <a href="mailto:radoslawluter@gmail.com">radoslawluter@gmail.com</a><br>\
+          </p>\
+        </div>\
+      </div>'),
     initialize: function() {
-      this.currentView = new VocabulaApp.PhrasesView();
+      this.render();
+    },
+    render: function() {
+      this.$el.html(this.template());
     }
   });
 })();

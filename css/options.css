@@ -3,6 +3,7 @@ body {
   padding-top: 20px;
   height: 100%;
   background: linear-gradient(to bottom, #61aa93, #5da0ad);
+  color: #777;
 }
 .backgrid tbody td {
     text-align: justify;
@@ -46,7 +47,6 @@ body {
 }
 .modal-content {
   border-radius: 0px;
-  color: #777;
 }
 .btn-primary {
   background-color: #61aa93;
@@ -55,4 +55,8 @@ body {
 .btn-primary:hover {
   background-color: #5da0ad;
   border-color: #5da0ad;
+}
+
+.info {
+  font-size: 16px;
 }
